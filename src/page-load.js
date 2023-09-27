@@ -40,7 +40,7 @@ function displayProject(projectObject) {
     // document.querySelector(".content-container").insertBefore(projectDiv,document.querySelector(".content-title").nextSibling);
 
     //it is let of not let in ugh...
-    for (let todo of projectObject.project) {
+    for (let todo of projectObject.todoList) {
         const todoContainer = `${todo.title}-container todo-container`;
         createAndAppend("div", todoContainer, projectTodoContainerClassName, null);
         // const todoDiv = document.createElement("div");
