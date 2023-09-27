@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <script src="main.js" defer></script>
+    <div class="body-container">
+        <div class="header">Todo List</div>
+        <div class="sidebar-content-container">
+            <div class="sidebar">
+                <div class="project-container">
+                    <div class="project-title">Project</div>
+                    <button class="project-button">Add Project</button>
+                    <form id="project-form" action="/todo-list" method="post">
+                        <input type="text" name="project-title" id="project-title">
+                        <input type="text" name="project-details" id="project-details">
+                        <div class="buttons">
+                            <button type="button" class="close">Cancle</button>
+                            <button type="submit" class="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="content-container">
+                <div class="content-title">
+                    <div class="content-project-title">Gym</div>
+                    <button class="todo-button">Add Todo</button>
+                </div>
+                <form id="todo-form" action="/todo-list" method="post">
+                    <input type="text" name="todo-title" id="todo-title" placeholder="Title: Pay bills">
+                    <input type="text" name="todo-details" id="todo-details" placeholder="Details: describe the task in detail">
+                    <div class="duedate-container">
+                        <label for="duedate">Due Date:</label>
+                        <input type="date" id="duedate" value="MM/DD/YYYY">
+                    </div>
+                    <div class="priority-container">
+                        <label for="priority">Priority:</label>
+                        <select id="priority">
+                            <option value="">--Please select priority--</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" class="close">Cancle</button>
+                        <button type="submit" class="submit">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>
