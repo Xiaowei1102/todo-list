@@ -29,6 +29,14 @@ html, body {
     height: 600px;
 }
 
+.sidebar {
+    flex: 1 1 auto;
+}
+
+.content-container {
+    flex: 3 1 auto;
+}
+
 .footer {
     flex: 1 1 auto;
     height: 100px;
@@ -36,3 +44,27 @@ html, body {
     background-color: black;
 }
 
+.content-title {
+    display: flex;
+}
+
+.content-project-title {
+    flex: 1 1 auto;
+}
+
+#project-form {
+    display: none;
+}
+
+#todo-form {
+    display: none;
+}
+
+.todo-container {
+    display: flex;
+    gap: 20px;
+}
+
+.todo-title {
+    flex: 1 1 auto;
+}
