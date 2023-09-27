@@ -59,6 +59,7 @@ html, body {
 
 #todo-form {
     display: none;
+    flex-direction: column;
 }
 
 .todo-container {

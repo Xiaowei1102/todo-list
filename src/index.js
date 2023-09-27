@@ -33,16 +33,24 @@ const submitProject = document.querySelector(".submit-project");
 submitProject.addEventListener("click", (e) => {
     //have to use the below command to stop the submit event otherwise, page will return not found
     e.preventDefault();
+    closeForm("#project-form");
     const projectTitle = document.getElementById("project-title");
     const projectTitleClassName = projectTitle.value.toLowerCase().split(" ").join("");
-    createAndAppend("div", projectTitleClassName, "project-item-container", false, null, projectTitle.value);
+    createAndAppend("div", projectTitleClassName, "project-item-container", projectTitle.value);
     //when project intially created, no todo list added yet, so we just clear the 
     document.querySelector(".content-project-title").innerHTML = projectTitle.value;
     //create a porject object according to project.js and add it to projectList
     const project = [];
     const projectObject = new Project(project, projectTitle.value);
     projectList.push(projectObject);
-    
+    //clear the container
+   document.querySelector(".project-todo-container").replaceChildren();
+   //clear the previous submit data in the form next time you open it
+   document.getElementById("project-form").reset();
 });
 
-//
+//add todo with "Add Todo" button
+const addTodoList = document.querySelector(".todo-button");
+addTodoList.addEventListener("click", (e) => {
+    openForm("#todo-form", "flex");
+});

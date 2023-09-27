@@ -5,7 +5,7 @@ import { Project } from "./projet";
 
 //use this funciton to create and add element to DOM
 //if you need to insert after specific element, turn on the flag
-function createAndAppend(elementType, className, parentElementClassName, insertAfterFlag, insertAfterElementClass, textContent) {
+function createAndAppend(elementType, className, parentElementClassName, textContent) {
     const child = document.createElement(elementType);
     if (className != null) {
         let classNameList = className.toLowerCase().split(" ");
@@ -14,13 +14,17 @@ function createAndAppend(elementType, className, parentElementClassName, insertA
             child.classList.add(name);
         }
     }
+    
+    //get rid of the insertafter(realized by insertBefore) function and created this container directly in HTML file
+    // let parent = document.getElementsByClassName(parentElementClassName.toLowerCase())[0];
+    // if (insertAfterFlag) {
+    //     document.getElementsByClassName(parentElementClassName.toLowerCase())[0].insertBefore(child, document.getElementsByClassName(insertAfterElementClass)[0].nextSibling);
+    // } else {
+    //     document.getElementsByClassName(parentElementClassName.toLowerCase())[0].appendChild(child);
+    // }
+
     //because calssName can be uppercases
-    let parent = document.getElementsByClassName(parentElementClassName.toLowerCase())[0];
-    if (insertAfterFlag) {
-        document.getElementsByClassName(parentElementClassName.toLowerCase())[0].insertBefore(child, document.getElementsByClassName(insertAfterElementClass)[0].nextSibling);
-    } else {
-        document.getElementsByClassName(parentElementClassName.toLowerCase())[0].appendChild(child);
-    }
+    document.getElementsByClassName(parentElementClassName.toLowerCase())[0].appendChild(child);
     if (textContent) {
         child.innerHTML = textContent;
     }
@@ -28,8 +32,8 @@ function createAndAppend(elementType, className, parentElementClassName, insertA
 
 
 function displayProject(projectObject) {
-    const projectTodoContainerClassName = `${projectObject.projectName.toLowerCase().split(" ").join("")}-todo-container`;
-    createAndAppend("div", projectTodoContainerClassName, "content-container", true, "content-title", null);
+    const projectTodoContainerClassName = `project-todo-container`;
+    // createAndAppend("div", projectTodoContainerClassName, "content-container", true, "content-title", null);
     // const projectDiv = document.createElement("div");
     // projectDiv.classList.add(`${projectName}-todo-container`);
     // //insert this div after the content-title div
@@ -38,7 +42,7 @@ function displayProject(projectObject) {
     //it is let of not let in ugh...
     for (let todo of projectObject.project) {
         const todoContainer = `${todo.title}-container todo-container`;
-        createAndAppend("div", todoContainer, projectTodoContainerClassName, false, null, null);
+        createAndAppend("div", todoContainer, projectTodoContainerClassName, null);
         // const todoDiv = document.createElement("div");
         // const todoContainer = todoDiv.classList.add(`${todo.title}-container`);
         // projectDiv.appendChild(todoContainer);
@@ -47,9 +51,9 @@ function displayProject(projectObject) {
         const textContentItems = [todo.title, "DETAILS", todo.dueDate, "Edit", "DELETE"]
         for (let i = 0; i < todoShownItems.length; i++) {
             if (i === 0 || i === 2) {
-                createAndAppend("div", `${todo.title}-title todo-${todoShownItems[i]}`, todoContainer, false, null, textContentItems[i]);
+                createAndAppend("div", `${todo.title}-title todo-${todoShownItems[i]}`, todoContainer, textContentItems[i]);
             } else {
-                createAndAppend("button", `${todo.title}-title todo-${todoShownItems[i]}`, todoContainer, false, null, textContentItems[i]);
+                createAndAppend("button", `${todo.title}-title todo-${todoShownItems[i]}`, todoContainer, textContentItems[i]);
             }
         }
 
@@ -63,7 +67,7 @@ function displayProject(projectObject) {
 
 function displayProjectOnSidebar(projectObject) {
     //two spelling error here cost half an hour debugging...
-    createAndAppend("div", projectObject.projectName, "project-item-container", false, null, projectObject.projectName);
+    createAndAppend("div", projectObject.projectName, "project-item-container", projectObject.projectName);
 }
 
 export {createAndAppend, displayProject, displayProjectOnSidebar};
