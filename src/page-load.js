@@ -1,4 +1,5 @@
 import { Todo } from "./todo";
+import { Project } from "./projet";
 
 //show the project and its todo list on the right side
 
@@ -26,8 +27,8 @@ function createAndAppend(elementType, className, parentElementClassName, insertA
 }
 
 
-function displayProject(project, projectName) {
-    const projectTodoContainerClassName = `${projectName}-todo-container`;
+function displayProject(projectObject) {
+    const projectTodoContainerClassName = `${projectObject.projectName.toLowerCase().split(" ").join("")}-todo-container`;
     createAndAppend("div", projectTodoContainerClassName, "content-container", true, "content-title", null);
     // const projectDiv = document.createElement("div");
     // projectDiv.classList.add(`${projectName}-todo-container`);
@@ -35,7 +36,7 @@ function displayProject(project, projectName) {
     // document.querySelector(".content-container").insertBefore(projectDiv,document.querySelector(".content-title").nextSibling);
 
     //it is let of not let in ugh...
-    for (let todo of project) {
+    for (let todo of projectObject.project) {
         const todoContainer = `${todo.title}-container todo-container`;
         createAndAppend("div", todoContainer, projectTodoContainerClassName, false, null, null);
         // const todoDiv = document.createElement("div");
@@ -60,4 +61,9 @@ function displayProject(project, projectName) {
     }
 }
 
-export {displayProject};
+function displayProjectOnSidebar(projectObject) {
+    //two spelling error here cost half an hour debugging...
+    createAndAppend("div", projectObject.projectName, "project-item-container", false, null, projectObject.projectName);
+}
+
+export {createAndAppend, displayProject, displayProjectOnSidebar};

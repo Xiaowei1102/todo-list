@@ -14,13 +14,13 @@
             <div class="sidebar">
                 <div class="project-container">
                     <div class="project-title">Project</div>
+                    <div class="project-item-container"></div>
                     <button class="project-button">Add Project</button>
                     <form id="project-form" action="/todo-list" method="post">
-                        <input type="text" name="project-title" id="project-title">
-                        <input type="text" name="project-details" id="project-details">
+                        <input type="text" name="project-title" id="project-title" placeholder="Project title...">
                         <div class="buttons">
-                            <button type="button" class="close">Cancle</button>
-                            <button type="submit" class="submit">Add</button>
+                            <button type="button" class="close-project">Cancle</button>
+                            <button type="submit" class="submit-project">Add</button>
                         </div>
                     </form>
                 </div>
@@ -47,8 +47,8 @@
                         </select>
                     </div>
                     <div class="buttons">
-                        <button type="button" class="close">Cancle</button>
-                        <button type="submit" class="submit">Add</button>
+                        <button type="button" class="close-todo">Cancle</button>
+                        <button type="submit" class="submit-todo">Add</button>
                     </div>
                 </form>
             </div>

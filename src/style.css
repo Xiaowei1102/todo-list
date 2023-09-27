@@ -54,6 +54,7 @@ html, body {
 
 #project-form {
     display: none;
+    flex-direction: column;
 }
 
 #todo-form {
