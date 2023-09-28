@@ -40,13 +40,17 @@ submitProject.addEventListener("click", (e) => {
     e.preventDefault();
     closeForm("#project-form");
     const projectTitle = document.getElementById("project-title");
-    const projectTitleClassName = projectTitle.value.toLowerCase().split(" ").join("");
-    createAndAppend("div", projectTitleClassName, "project-item-container", projectTitle.value);
+    //const projectTitleClassName = projectTitle.value.toLowerCase().split(" ").join("");
+    // createAndAppend("div", `${projectTitleClassName}-container`, "project-item-container", null); 
+    // createAndAppend("div", `${projectTitleClassName}-title`, `${projectTitleClassName}-container`, projectTitle.value);
+    // createAndAppend("button", `${projectTitleClassName}-button`, `${projectTitleClassName}-container`, "X");
     //when project intially created, no todo list added yet, so we just clear the 
     document.querySelector(".content-project-title").innerHTML = projectTitle.value;
     //create a porject object according to project.js and add it to projectList
     const todoList = [];
     const projectObject = new Project(todoList, projectTitle.value);
+    //populate the sidebar
+    displayProjectOnSidebar(projectObject);
     projectList.push(projectObject);
     //clear the container
    document.querySelector(".project-todo-container").replaceChildren();
@@ -203,7 +207,7 @@ deleteTodo.addEventListener("click", (e) => {
 const sidebarProject = document.querySelector(".project-item-container");
 sidebarProject.addEventListener("click", (e) => {
     //if you clicked the project list instaed of the container
-    if (e.target.parentElement.className === "project-item-container") {
+    if (e.target.className.includes("title")) {
         //display that project list on the main content
         for (let project of projectList) {
             if (project.projectName === e.target.innerHTML) {
@@ -212,6 +216,37 @@ sidebarProject.addEventListener("click", (e) => {
                 displayProject(project);
             }
         }
+        
+    }
+});
+
+//implement the delete project button on the side bar
+
+sidebarProject.addEventListener("click", (e) => {
+    //if you clicked the project list instaed of the container
+    if (e.target.className.includes("button")) {
+        //delete that project list on sidebar
+        for (let project of projectList) {
+            if (project.projectName.toLowerCase().split(" ").join("") === e.target.className.split("-")[0]) {
+                //found the projectObject
+                //if the object is ondisplay right now, get rid of it first;
+                if (project.projectName === document.querySelector(".content-project-title").innerHTML) {
+                    document.querySelector(".content-project-title").innerHTML = " ";
+                    document.querySelector(".project-todo-container").replaceChildren();                   
+                }
+                let index = projectList.indexOf(project);
+                if (index > -1) {
+                    projectList.splice(index, 1);
+                }
+            }
+        }
+        //clear sidebar project
+        document.querySelector(".project-item-container").replaceChildren();
+        //display the projectList;
+        for (let project of projectList) {
+            displayProjectOnSidebar(project);
+        }
+        //then display on the main content with the first element from the projectList
         
     }
 });

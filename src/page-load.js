@@ -70,7 +70,11 @@ function displayProject(projectObject) {
 
 function displayProjectOnSidebar(projectObject) {
     //two spelling error here cost half an hour debugging...
-    createAndAppend("div", projectObject.projectName, "project-item-container", projectObject.projectName);
+    //createAndAppend("div", projectObject.projectName, "project-item-container", projectObject.projectName);
+    const projectTitleClassName = projectObject.projectName.toLowerCase().split(" ").join("");
+    createAndAppend("div", `${projectTitleClassName}-container`, "project-item-container", null); 
+    createAndAppend("div", `${projectTitleClassName}-title`, `${projectTitleClassName}-container`, projectObject.projectName);
+    createAndAppend("button", `${projectTitleClassName}-button`, `${projectTitleClassName}-container`, "X");
 }
 
 export {createAndAppend, displayProject, displayProjectOnSidebar};

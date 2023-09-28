@@ -57,6 +57,13 @@ html, body {
     border-radius: 10px;
     font-size: 20px;
     padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-item-container > div > [class*='title'] {
+    flex: 1 1 auto;
 }
 
 .content-container {
