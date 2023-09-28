@@ -200,4 +200,18 @@ deleteTodo.addEventListener("click", (e) => {
 }); 
 
 //implement the project switch when click on sidebar
-
+const sidebarProject = document.querySelector(".project-item-container");
+sidebarProject.addEventListener("click", (e) => {
+    //if you clicked the project list instaed of the container
+    if (e.target.parentElement.className === "project-item-container") {
+        //display that project list on the main content
+        for (let project of projectList) {
+            if (project.projectName === e.target.innerHTML) {
+                document.querySelector(".content-project-title").innerHTML = project.projectName;
+                document.querySelector(".project-todo-container").replaceChildren();
+                displayProject(project);
+            }
+        }
+        
+    }
+});
