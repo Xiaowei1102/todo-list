@@ -41,19 +41,22 @@ function displayProject(projectObject) {
 
     //it is let of not let in ugh...
     for (let todo of projectObject.todoList) {
-        const todoContainer = `${todo.title}-container todo-container`;
+        //when todo.title goes into className, it must be lowercases with no space
+        const todoTitleClassName = todo.title.toLowerCase().split(" ").join("");
+
+        const todoContainer = `${todoTitleClassName}-container todo-container`;
         createAndAppend("div", todoContainer, projectTodoContainerClassName, null);
         // const todoDiv = document.createElement("div");
         // const todoContainer = todoDiv.classList.add(`${todo.title}-container`);
         // projectDiv.appendChild(todoContainer);
 
-        const todoShownItems = ["title", "description", "duedate", "edit", "delete"];
-        const textContentItems = [todo.title, "DETAILS", todo.dueDate, "Edit", "DELETE"]
+        const todoShownItems = ["title", "description", "details", "duedate", "edit", "delete"];
+        const textContentItems = [todo.title, " ", "DETAILS", todo.dueDate, "Edit", "DELETE"]
         for (let i = 0; i < todoShownItems.length; i++) {
-            if (i === 0 || i === 2) {
-                createAndAppend("div", `${todo.title}-title todo-${todoShownItems[i]}`, todoContainer, textContentItems[i]);
+            if (i === 0 || i === 1 || i === 3) {
+                createAndAppend("div", `${todoTitleClassName} todo-${todoShownItems[i]}`, todoContainer, textContentItems[i]);
             } else {
-                createAndAppend("button", `${todo.title}-title todo-${todoShownItems[i]}`, todoContainer, textContentItems[i]);
+                createAndAppend("button", `${todoTitleClassName} todo-${todoShownItems[i]}`, todoContainer, textContentItems[i]);
             }
         }
 

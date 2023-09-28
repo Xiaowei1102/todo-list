@@ -23,14 +23,15 @@ html, body {
     padding-left: 30px;
 }
 .sidebar-content-container {
-    padding-left: 30px;
     flex: 1 1 auto;
     display: flex;
     height: 600px;
 }
 
 .sidebar {
+    padding-left: 30px;
     flex: 1 1 auto;
+    background-color: greenyellow;
 }
 
 .content-container {
@@ -68,5 +69,9 @@ html, body {
 }
 
 .todo-title {
+    width: 150px;
+}
+
+.todo-description {
     flex: 1 1 auto;
 }
