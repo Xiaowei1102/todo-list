@@ -21,11 +21,37 @@ let todoClassTag = null;
 const swim = new Todo("swim", "do it", "2023-09-28", "low");
 const run = new Todo("run", "just run", "2023-09-27", "medium");
 const gym = [swim, run];
-const projectList = [];
+let projectList = [];
 const gymProject = new Project(gym, "Gym");
 projectList.push(gymProject);
-displayProject(gymProject);
-displayProjectOnSidebar(gymProject);
+
+//localStorage.removeItem("projectList");
+
+//check localStorgage to see if we have already have saved states
+if ((localStorage.getItem("deletetoempty") !== "yes") && (!localStorage.getItem("projectList")) ) {
+    //this is when the starting localstorage has nothing but it's not due to deletion 
+    displayProject(gymProject);
+    //display projectList on sidebar
+    displayProjectOnSidebar(gymProject);
+} else {
+    let projectListJSON = localStorage.getItem("projectList");
+    projectList = JSON.parse(projectListJSON);
+    displayProject(projectList[0]);
+    //display projectList on sidebar
+    for (let project of projectList) {
+        displayProjectOnSidebar(project);
+    }
+}
+//if we deleted the projet to empty, then do not need to show anything
+
+//use below function to populate the localStorage
+function populateLocalStorage() {
+    const projectListJSON = JSON.stringify(projectList);
+    localStorage.setItem("projectList", projectListJSON);
+    if (projectList === null) {
+        localStorage.setItem("deletetoempty", "yes");
+    }
+}
 
 //open project form on click
 const addProject = document.querySelector(".project-button");
@@ -52,6 +78,8 @@ submitProject.addEventListener("click", (e) => {
     //populate the sidebar
     displayProjectOnSidebar(projectObject);
     projectList.push(projectObject);
+    //populate the storage
+    populateLocalStorage();
     //clear the container
    document.querySelector(".project-todo-container").replaceChildren();
    //clear the previous submit data in the form next time you open it
@@ -83,6 +111,8 @@ submitTodo.addEventListener("click", (e) => {
             if (project.projectName === document.querySelector(".content-project-title").innerHTML) {
                 project.todoList.push(todo);
                 updatedProject = project;
+                //populate storage
+                populateLocalStorage();
             }
         }
         //display the updated project
@@ -102,6 +132,8 @@ submitTodo.addEventListener("click", (e) => {
         currentTodo.description = document.getElementById("todo-details").value;
         currentTodo.dueDate = document.getElementById("duedate").value;
         currentTodo.priority = document.getElementById("priority").value;
+        //after editing, populate the storage
+        populateLocalStorage();
         const currentProject = findCLickedProject();
         //display the updated project
         //clear the container
@@ -194,6 +226,8 @@ deleteTodo.addEventListener("click", (e) => {
         let index = currentProject.todoList.indexOf(currentTodo);
         if(index > -1) {
             currentProject.todoList.splice(index, 1);
+            //change storage
+            populateLocalStorage();
         }
         //then display
         document.querySelector(".project-todo-container").replaceChildren();
@@ -237,6 +271,8 @@ sidebarProject.addEventListener("click", (e) => {
                 let index = projectList.indexOf(project);
                 if (index > -1) {
                     projectList.splice(index, 1);
+                    //populate the storage
+                    populateLocalStorage();
                 }
             }
         }
